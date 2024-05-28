@@ -12,8 +12,12 @@ async function getUserData(id) {
     //Get the database identifier from the central database
 
     const dbIdentifier = await central(id);
-    const userData = dbs[dbIdentifier](id);
-    const personalData = await vault(id);
+    // const userData = dbs[dbIdentifier](id);
+    const [userData, personalData] = await Promise.all([
+        dbs[dbIdentifier](id),
+        vault(id)// Part 2
+      ]);
+    // const personalData = await vault(id);
 
     const combinedData = {
         id: id,
@@ -45,3 +49,16 @@ async function getUserData(id) {
     return Promise.reject(error);
   }
 }
+// Example usage:
+getUserData(1)
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
+
+//Testing
+  const testIds = [1, 5, 10, -1, 11, 'a', true];
+
+testIds.forEach(id => {
+  getUserData(id)
+    .then(data => console.log('Success:', data))
+    .catch(error => console.error('Error:', error));
+});
