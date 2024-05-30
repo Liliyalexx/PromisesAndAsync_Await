@@ -14,9 +14,10 @@ async function getUserData(id) {
     const dbIdentifier = await central(id);
     // const userData = dbs[dbIdentifier](id);
     const [userData, personalData] = await Promise.all([
-        dbs[dbIdentifier](id),
-        vault(id)// Part 2
+        dbs[dbIdentifier](id),//100ms
+        vault(id)// 100 ms Part 2
       ]);
+
     // const personalData = await vault(id);
 
     const combinedData = {

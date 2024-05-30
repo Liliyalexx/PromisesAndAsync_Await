@@ -1,5 +1,6 @@
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+
 /**
  * Accepts a user id value and returns a string containing
  * the database that user's information can be found in.
