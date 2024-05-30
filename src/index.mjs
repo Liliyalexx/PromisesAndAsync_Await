@@ -9,9 +9,11 @@ async function getUserData(id) {
   };
 
   try {
+     console.log(`Fetching data for user ID: ${id}`);
     //Get the database identifier from the central database
 
     const dbIdentifier = await central(id);
+    console.log(`Database identifier for user ID ${id}: ${dbIdentifier}`);
     // const userData = dbs[dbIdentifier](id);
     const [userData, personalData] = await Promise.all([
         dbs[dbIdentifier](id),//100ms
@@ -33,7 +35,7 @@ async function getUserData(id) {
           geo: {
             lat: personalData.address.geo.lat,
             lng: personalData.address.geo.lng
-          }
+          },
         },
         phone: personalData.phone,
         website: userData.website,
@@ -41,12 +43,13 @@ async function getUserData(id) {
           name: userData.company.name,
           catchPhrase: userData.company.catchPhrase,
           bs: userData.company.bs
-        }
+        },
       };
 
       return combinedData;
 
   } catch(error){
+     console.error(`Error fetching data for user ID ${id}:`, error.message);
     return Promise.reject(error);
   }
 }
@@ -57,9 +60,17 @@ getUserData(1)
 
 //Testing
   const testIds = [1, 5, 10, -1, 11, 'a', true];
+  // Filter valid IDs
+const validTestIds = testIds.filter(id => typeof id === 'number' && id >= 1 && id <= 10);
 
-testIds.forEach(id => {
+validTestIds.forEach((id) => {
   getUserData(id)
+<<<<<<< HEAD
     .then(data => console.log('Success:', data))
     .catch(error => console.error('Error:', error));
 });
+=======
+    .then((data) => console.log('Success:', data))
+    .catch((error) => console.error('Error:', error));
+});
+>>>>>>> aebfea1788157b196ce9957801d266b06d3312b6
