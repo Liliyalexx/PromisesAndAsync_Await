@@ -65,12 +65,6 @@ const validTestIds = testIds.filter(id => typeof id === 'number' && id >= 1 && i
 
 validTestIds.forEach((id) => {
   getUserData(id)
-<<<<<<< HEAD
     .then(data => console.log('Success:', data))
     .catch(error => console.error('Error:', error));
 });
-=======
-    .then((data) => console.log('Success:', data))
-    .catch((error) => console.error('Error:', error));
-});
->>>>>>> aebfea1788157b196ce9957801d266b06d3312b6
